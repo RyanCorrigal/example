@@ -23,25 +23,25 @@ export class CommentService {
     }
 
     async createComment(comment: Comment) {
-        this.commentsRepository.save(comment);
-
         var commonService = new CommonService;
 
-        var hashtags = commonService.getHashTags(comment.content);
-        var userMentions = commonService.getUsers(comment.content);
+        var hashtags = commonService.getHashTags(comment.comment);
+        var userMentions = commonService.getUsers(comment.comment);
         
         (await hashtags).forEach(function (value) {
             var hashtag = new Hashtag;
             hashtag.name = value;
             console.log(value);
 
-            var hashtagModule = new HashtagModule(new HashtagService(new Repository<Hashtag>()));
-            hashtagModule.hashtagService.createHashtag(hashtag);
+            //var hashtagModule = new HashtagModule(new HashtagService(new Repository<Hashtag>()));
+            //hashtagModule.hashtagService.createHashtag(hashtag);
         });
 
         (await userMentions).forEach(function (value) {
             console.log(value);
         });
+
+        this.commentsRepository.save(comment);
     }
     
     async updateComment(comment: Comment) {
