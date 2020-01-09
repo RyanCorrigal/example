@@ -6,4 +6,6 @@ import { HashtagController } from './hashtag.controller';
   providers: [HashtagService],
   controllers: [HashtagController]
 })
-export class HashtagModule {}
+export class HashtagModule {
+  constructor(public readonly hashtagService: HashtagService) {} 
+}
